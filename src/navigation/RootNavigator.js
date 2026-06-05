@@ -5,17 +5,21 @@ import LoginScreen from '../screens/LoginScreen';
 import BusinessPickerScreen from '../screens/BusinessPickerScreen';
 import BookingsScreen from '../screens/BookingsScreen';
 import BookingDetailsScreen from '../screens/BookingDetailsScreen';
+import CalendarScreen from '../screens/CalendarScreen';
 
 const Stack = createNativeStackNavigator();
 
-const detailsOptions = {
-  title: 'Booking',
+// Shared native-header look for the pushed screens that show one.
+const headerOptions = {
   headerShown: true,
   headerTintColor: colors.primary,
   headerStyle: { backgroundColor: colors.surface },
   headerTitleStyle: { color: colors.text },
   headerShadowVisible: false,
 };
+
+const detailsOptions = { ...headerOptions, title: 'Booking' };
+const calendarOptions = { ...headerOptions, title: 'Calendar' };
 
 // Auth-gated navigation: the token in redux decides which stack renders, so
 // login and the 401 interceptor switch screens declaratively.
@@ -43,6 +47,7 @@ export default function RootNavigator() {
         <Stack.Screen name="BusinessPicker" component={BusinessPickerScreen} />
       )}
       <Stack.Screen name="Bookings" component={BookingsScreen} />
+      <Stack.Screen name="Calendar" component={CalendarScreen} options={calendarOptions} />
       <Stack.Screen name="BookingDetails" component={BookingDetailsScreen} options={detailsOptions} />
     </Stack.Navigator>
   );

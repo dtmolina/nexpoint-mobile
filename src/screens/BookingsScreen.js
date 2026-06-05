@@ -127,6 +127,9 @@ export default function BookingsScreen() {
             {meta?.total ?? 0} total
           </Text>
         </View>
+        <Pressable onPress={() => navigation.navigate('Calendar')} hitSlop={8} style={styles.headerAction}>
+          <Text style={styles.headerActionText}>Calendar</Text>
+        </Pressable>
         {isSuperAdmin && (
           <Pressable onPress={() => navigation.navigate('BusinessPicker')} hitSlop={8} style={styles.headerAction}>
             <Text style={styles.headerActionText}>Switch</Text>
