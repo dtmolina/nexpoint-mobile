@@ -24,7 +24,18 @@ reach. `localhost` does **not** work from a phone or most emulators:
 
 Find your LAN IP on macOS with `ipconfig getifaddr en0`. The phone must be on
 the same Wi-Fi as your machine, and the Laravel server must listen on all
-interfaces: `php artisan serve --host=0.0.0.0 --port=8000`.
+interfaces. Run it with worker processes so it can handle concurrent requests:
+
+```bash
+PHP_CLI_SERVER_WORKERS=4 php artisan serve --host=0.0.0.0 --port=8000 --no-reload
+```
+
+Plain `php artisan serve` is single-threaded: a second request that arrives
+while the first connection is still closing gets reset, which surfaces as a
+"Network Error" in the app (for example, opening a Booking Details screen right
+after the bookings list loads). `--no-reload` is required for Laravel to respect
+`PHP_CLI_SERVER_WORKERS`; without it the variable is ignored and only one worker
+starts.
 
 > If versions drift, run `npx expo install` to align native packages with the
 > installed Expo SDK.
