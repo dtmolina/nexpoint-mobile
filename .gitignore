@@ -1,0 +1,14 @@
+node_modules/
+.expo/
+dist/
+web-build/
+.env
+*.log
+.DS_Store
+
+# Native
+ios/
+android/
+
+# Metro
+.metro-health-check*
