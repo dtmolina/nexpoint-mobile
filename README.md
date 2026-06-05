@@ -1,8 +1,9 @@
 # Nexpoint Mobile
 
 Expo (React Native) app for Nexpoint Hub. Talks to the existing Laravel backend
-using the same Sanctum token auth as the web frontend. Currently ships two
-screens: **Login** and **Bookings List**.
+using the same Sanctum token auth as the web frontend. Currently ships four
+screens: **Login**, **Business Picker**, **Bookings List**, and
+**Booking Details**.
 
 ## Setup
 
@@ -43,7 +44,7 @@ src/
   config/      API URL, brand, storage keys
   hooks/       useAuth — screen-facing wrapper over the auth slice
   navigation/  RootNavigator — auth-gated native stack
-  screens/     LoginScreen, BookingsScreen
+  screens/     LoginScreen, BusinessPickerScreen, BookingsScreen, BookingDetailsScreen
   store/       Redux Toolkit store + authSlice (persisted to AsyncStorage)
   theme/       colors, spacing, radius, typography tokens
 ```
@@ -51,6 +52,10 @@ src/
 Auth state is the single source of truth for routing: a token in the store shows
 the signed-in stack, its absence shows Login. A `401` from any request clears the
 token and bounces back to Login automatically.
+
+Super admins have no fixed business, so their stack also includes the Business
+Picker. It is the entry point until a business is chosen, and stays reachable
+from the Bookings header to switch. Regular users go straight to their business.
 
 ### Adding a screen
 
